@@ -71,12 +71,12 @@ export const Img = (pr) => {
       ref={ref}
       {...props}
       style={{
+        maxWidth:'100%',
         width: size?.width || '100%',
         height: size?.height,
         position: 'relative',
         ...props?.style
-      }}
-    >
+      }}>
       {!loaded &&
         (skeleton && React.isValidElement(skeleton) ? (
           skeleton
@@ -86,6 +86,7 @@ export const Img = (pr) => {
       <div
         {...imageRootProps}
         style={{
+          maxWidth:'100%',
           width: size?.width || '100%',
           height: size?.height,
           ...(placeholderSrc
@@ -97,8 +98,7 @@ export const Img = (pr) => {
               }
             : {}),
           ...imageRootProps?.style
-        }}
-      >
+        }}>
         <img
           className={`smart-image ${styles.initWithOpacity} ${
             loaded ? styles.initWithOpacityStart : ''
@@ -110,6 +110,7 @@ export const Img = (pr) => {
             setLoaded(true)
           }}
           style={{
+            maxWidth:'100%',
             width: size?.width || '100%',
             height: size?.height,
             ...imageProps

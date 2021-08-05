@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 export const Img = (pr) => {
   const {
@@ -109,11 +109,12 @@ export const Img = (pr) => {
           onLoad={() => {
             setLoaded(true)
           }}
+          {...imageProps}
           style={{
             maxWidth:'100%',
             width: size?.width || '100%',
             height: size?.height,
-            ...imageProps
+            ...imageProps?.style
           }}
         />
       </div>
@@ -171,19 +172,19 @@ function debounce(func, wait, immediate) {
   }
 }
 
-//
-// Img.defaultProps = {
-//   loading: 'lazy'
-// }
-//
-// Img.propTypes = {
-//   imageWidth: PropTypes.number,
-//   imageHeight: PropTypes.number,
-//   src: PropTypes.string,
-//   placeholderSrc: PropTypes.string,
-//   alt: PropTypes.string,
-//   loading: PropTypes.string,
-//   imageRootProps: PropTypes.object,
-//   imageProps: PropTypes.object,
-//   skeleton: PropTypes.oneOfType([PropTypes.element, PropTypes.bool])
-// }
+
+Img.defaultProps = {
+  loading: 'lazy'
+}
+
+Img.propTypes = {
+  imageWidth: PropTypes.number,
+  imageHeight: PropTypes.number,
+  src: PropTypes.string,
+  placeholderSrc: PropTypes.string,
+  alt: PropTypes.string,
+  loading: PropTypes.string,
+  imageRootProps: PropTypes.object,
+  imageProps: PropTypes.object,
+  skeleton: PropTypes.oneOfType([PropTypes.element, PropTypes.bool])
+}

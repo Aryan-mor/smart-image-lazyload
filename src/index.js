@@ -18,6 +18,7 @@ export const Img = (pr) => {
   const [width] = useWindowSize()
   const ref = useRef()
   const [loaded, setLoaded] = useState(false)
+  const [error, setError] = useState(false)
   const [size, setSize] = useState()
 
   useEffect(() => {
@@ -66,6 +67,10 @@ export const Img = (pr) => {
     }
   }, [loaded])
 
+
+
+  const isLoaded = loaded && !error
+
   return (
     <div
       ref={ref}
@@ -77,7 +82,7 @@ export const Img = (pr) => {
         position: 'relative',
         ...props?.style
       }}>
-      {!loaded &&
+      {!isLoaded &&
         (skeleton && React.isValidElement(skeleton) ? (
           skeleton
         ) : (
@@ -101,13 +106,16 @@ export const Img = (pr) => {
         }}>
         <img
           className={`smart-image ${styles.initWithOpacity} ${
-            loaded ? styles.initWithOpacityStart : ''
+            isLoaded ? styles.initWithOpacityStart : ''
           }`}
           src={src}
           alt={alt}
           loading={loading}
           onLoad={() => {
             setLoaded(true)
+          }}
+          onError={() => {
+            setError(true)
           }}
           {...imageProps}
           style={{

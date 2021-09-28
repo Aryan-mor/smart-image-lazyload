@@ -83,7 +83,7 @@ export const Img = (pr) => {
         position: "relative",
         ...props?.style
       }}>
-      {(!isLoaded || true)  &&
+      {!isLoaded  &&
       (skeleton && React.isValidElement(skeleton) ? (
         skeleton
       ) : (

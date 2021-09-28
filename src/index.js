@@ -7,6 +7,7 @@ export const Img = (pr) => {
     skeleton,
     imageWidth,
     imageHeight,
+    borderRadius,
     src,
     placeholderSrc,
     alt,
@@ -82,7 +83,7 @@ export const Img = (pr) => {
         position: "relative",
         ...props?.style
       }}>
-      {!isLoaded &&
+      {(!isLoaded || true)  &&
       (skeleton && React.isValidElement(skeleton) ? (
         skeleton
       ) : (
@@ -94,6 +95,7 @@ export const Img = (pr) => {
           maxWidth: "100%",
           width: size?.width || "100%",
           height: size?.height,
+          position:'absolute',
           ...(placeholderSrc
             ? {
               backgroundImage: `url("${placeholderSrc}")`,

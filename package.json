@@ -1,6 +1,6 @@
 {
   "name": "smart-image-lazyload",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "React smart image lazy load without width and height",
   "author": "Aryan-mor",
   "license": "MIT",
@@ -50,5 +50,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }

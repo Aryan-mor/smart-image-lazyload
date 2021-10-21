@@ -1,31 +1,58 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from 'react'
 
-import { Img } from "smart-image-lazyload";
-import "smart-image-lazyload/dist/index.css";
+import { Img as SmartImg } from 'smart-image-lazyload'
+import 'smart-image-lazyload/dist/index.css'
 
 
 const App = () => {
-  return (
-    <div style={{
-      width: "50%",
-    }}>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap"
-        }}>
-        <Img
-          imageWidth={1280}
-          imageHeight={794}
-          src={"https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-has-ph.jpg"}
-          placeholderSrc={"https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-ph.jpg"}
-          alt={"image"} />
-      </div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-      </p>
-    </div>
-  );
-};
+  const ref = useRef()
+  const [width, setWidth] = useState('15%')
 
-export default App;
+  function handleChangeWidth() {
+    setWidth((w) => w === '15%' ? '7.5%' : '15%')
+  }
+
+  // useEffect(() => {
+  //   console.log('askfjkaskfjkajskf 2', ref?.current?.offsetWidth)
+  // }, [ref?.current?.offsetWidth])
+
+  return (
+    <div
+      style={{
+        width: '100%'
+      }}>
+      <button onClick={handleChangeWidth}>
+        Change Width
+      </button>
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap'
+      }}>
+        <MyImage width={width} />
+      </div>
+    </div>
+  )
+}
+
+function MyImage({ width }) {
+  return (
+    <div
+      style={{
+        padding: 10,
+        width: width,
+        display: 'flex',
+        flexWrap: 'wrap'
+      }}>
+      <SmartImg
+        checkParent={true}
+        imageWidth={1280}
+        imageHeight={794}
+        src={'https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-has-ph.jpg'}
+        placeholderSrc={'https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-ph.jpg'}
+        alt={'image'} />
+    </div>
+  )
+}
+
+
+export default App

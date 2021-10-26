@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
+import { debounce } from 'lodash'
 
 export const Img = (pr) => {
   const {
@@ -11,7 +11,7 @@ export const Img = (pr) => {
     borderRadius,
     checkParent = false,
     src,
-    minHeight=70,
+    minHeight:mH = 70,
     placeholderSrc,
     alt,
     loading,
@@ -20,7 +20,7 @@ export const Img = (pr) => {
     ...props
   } = pr
 
-  const [width] = useWindowSize()
+  const [windowWidth] = useWindowSize()
   const ref = useRef()
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
@@ -28,10 +28,10 @@ export const Img = (pr) => {
 
   useEffect(() => {
     setImageSize(true)
-  }, [width])
+  }, [windowWidth])
 
 
-  const setImageSizeDebounce = _.debounce(function() {
+  const setImageSizeDebounce = debounce(function() {
     setImageSize(true)
   }, 1500)
 
@@ -46,14 +46,14 @@ export const Img = (pr) => {
       setImageSizeDebounce()
     }, 1000)
 
-    setTimeout(()=>{
+    setTimeout(() => {
       clearInterval(interval)
-    },9000)
+    }, 9000)
 
     return () => {
       clearInterval(interval)
     }
-  }, [size,loaded])
+  }, [size, loaded])
 
   function setImageSize(force = false) {
     if (!(imageWidth && imageHeight) && !force) return
@@ -101,6 +101,9 @@ export const Img = (pr) => {
 
 
   const isLoaded = src && loaded && !error
+  const width = size?.width || '100%';
+  const height = size?.height || 'auto';
+  const minHeight = size?.height ? undefined : mH;
 
   return (
     <div
@@ -108,9 +111,9 @@ export const Img = (pr) => {
       {...props}
       style={{
         maxWidth: '100%',
-        width: size?.width || '100%',
-        height: size?.height|| 'auto',
-        minHeight:size?.height ? undefined:minHeight,
+        width: width,
+        height: height,
+        minHeight:minHeight,
         position: 'relative',
         ...props?.style
       }}>
@@ -124,9 +127,9 @@ export const Img = (pr) => {
         {...imageRootProps}
         style={{
           maxWidth: '100%',
-          width: size?.width || '100%',
-          height: size?.height || 'auto',
-          minHeight:size?.height ? undefined:minHeight,
+          width: width,
+          height: height,
+          minHeight: minHeight,
           position: 'absolute',
           ...(placeholderSrc
             ? {
@@ -154,8 +157,8 @@ export const Img = (pr) => {
           {...imageProps}
           style={{
             maxWidth: '100%',
-            width: size?.width || '100%',
-            height: size?.height,
+            width: width,
+            height: height,
             ...imageProps?.style
           }}
         />

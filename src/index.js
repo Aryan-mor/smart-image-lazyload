@@ -106,8 +106,8 @@ export const Img = (pr) => {
 
 
   const isLoaded = src && loaded && !error
-  const width = `${vw}vw` || size?.width || '100%'
-  const height = vw ? `${((imageHeight*vw)/imageWidth)}vw` : (size?.height || 'auto')
+  const width = vw ? `${vw}vw` : (size?.width || '100%')
+  const height = vw ? `${((imageHeight * vw) / imageWidth)}vw` : (size?.height || 'auto')
   const minHeight = vw ? undefined : (size?.height ? undefined : mH)
 
   return (

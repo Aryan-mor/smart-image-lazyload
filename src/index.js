@@ -5,13 +5,14 @@ import { debounce } from 'lodash'
 
 export const Img = (pr) => {
   const {
+    vw,
     skeleton,
     imageWidth,
     imageHeight,
     borderRadius,
     checkParent = false,
     src,
-    minHeight:mH = 70,
+    minHeight: mH = 70,
     placeholderSrc,
     alt,
     loading,
@@ -26,17 +27,19 @@ export const Img = (pr) => {
   const [error, setError] = useState(false)
   const [size, setSize] = useState()
 
-  useEffect(() => {
+
+  useLayoutEffect(() => {
+    if (vw)
+      return
     setImageSize(true)
   }, [windowWidth])
-
 
   const setImageSizeDebounce = debounce(function() {
     setImageSize(true)
   }, 1500)
 
   useEffect(() => {
-    if (!checkParent || !loaded)
+    if (!checkParent || !loaded || vw)
       return
     let parentWidth = ref?.current?.parentNode.offsetWidth
     const interval = setInterval(() => {
@@ -76,6 +79,8 @@ export const Img = (pr) => {
   }
 
   useEffect(() => {
+    if (vw)
+      return
     let interval
     if (!loaded) {
       try {
@@ -101,9 +106,9 @@ export const Img = (pr) => {
 
 
   const isLoaded = src && loaded && !error
-  const width = size?.width || '100%';
-  const height = size?.height || 'auto';
-  const minHeight = size?.height ? undefined : mH;
+  const width = `${vw}vw` || size?.width || '100%'
+  const height = vw ? `${((imageHeight*vw)/imageWidth)}vw` : (size?.height || 'auto')
+  const minHeight = vw ? undefined : (size?.height ? undefined : mH)
 
   return (
     <div
@@ -113,7 +118,7 @@ export const Img = (pr) => {
         maxWidth: '100%',
         width: width,
         height: height,
-        minHeight:minHeight,
+        minHeight: minHeight,
         position: 'relative',
         ...props?.style
       }}>

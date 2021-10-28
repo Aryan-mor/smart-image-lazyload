@@ -6,7 +6,7 @@ import 'smart-image-lazyload/dist/index.css'
 
 const App = () => {
   const ref = useRef()
-  const [width, setWidth] = useState('15%')
+  const [width, setWidth] = useState('7.5%')
 
   function handleChangeWidth() {
     setWidth((w) => w === '15%' ? '7.5%' : '15%')
@@ -24,17 +24,19 @@ const App = () => {
       <button onClick={handleChangeWidth}>
         Change Width
       </button>
-      <div style={{
-        display: 'flex',
-        flexWrap: 'wrap'
-      }}>
-        <MyImage width={width} />
+      <div
+        style={{
+          width:'100%',
+          display: 'flex',
+          flexWrap: 'wrap'
+        }}>
+        <MyImage width={"25vw"} show={width === "15%"}/>
       </div>
     </div>
   )
 }
 
-function MyImage({ width }) {
+function MyImage({ width ,show}) {
   return (
     <div
       style={{
@@ -44,10 +46,11 @@ function MyImage({ width }) {
         flexWrap: 'wrap'
       }}>
       <SmartImg
+        vw={25}
         checkParent={true}
         imageWidth={1280}
         imageHeight={794}
-        src={'https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-has-ph.jpg'}
+        src={show ? 'https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-has-ph.jpg':undefined}
         placeholderSrc={'https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-ph.jpg'}
         alt={'image'} />
     </div>

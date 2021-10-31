@@ -12,11 +12,11 @@ export const Img = (pr) => {
     borderRadius,
     checkParent,
     src: dSrc,
-    minHeight: mH ,
+    minHeight: mH,
     placeholderSrc: dPlaceholderSrc,
     alt,
     loading,
-    debug: dDebug ,
+    debug: dDebug,
     debugTimeout,
     imageRootProps = {},
     imageProps = {},
@@ -82,8 +82,6 @@ export const Img = (pr) => {
   }
 
   useEffect(() => {
-    if (vw)
-      return
     let interval
     if (!loaded) {
       try {
@@ -155,7 +153,7 @@ export const Img = (pr) => {
         <div className={styles.skeleton} />
       ))}
       <div
-        className={placeholderSrc?styles.placeholder:undefined}
+        className={placeholderSrc ? styles.placeholder : undefined}
         {...imageRootProps}
         style={{
           maxWidth: '100%',
@@ -240,9 +238,9 @@ export function getImageSize(ref, imageWidth, imageHeight) {
 Img.defaultProps = {
   loading: 'lazy',
   debug: false,
-  minHeight:70,
-  checkParent:false,
-  debugTimeout: 2000,
+  minHeight: 70,
+  checkParent: false,
+  debugTimeout: 2000
 }
 
 Img.propTypes = {

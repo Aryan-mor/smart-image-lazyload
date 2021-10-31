@@ -3,6 +3,10 @@ import styles from './styles.module.css'
 import PropTypes from 'prop-types'
 import { debounce } from 'lodash'
 
+
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect
+
 export const Img = (pr) => {
   const {
     vw,
@@ -31,7 +35,7 @@ export const Img = (pr) => {
   const [debug, setDebug] = useState()
 
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (vw)
       return
     setImageSize(true)
@@ -200,7 +204,7 @@ export const Img = (pr) => {
 export function useWindowSize(wait = 2000) {
   const [size, setSize] = useState([0, 0])
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     updateSize()
     try {
       window?.addEventListener(

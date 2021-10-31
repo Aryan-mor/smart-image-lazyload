@@ -11,11 +11,12 @@ export const Img = (pr) => {
     imageHeight,
     borderRadius,
     checkParent = false,
-    src,
+    src: dSrc,
     minHeight: mH = 70,
-    placeholderSrc,
+    placeholderSrc: dPlaceholderSrc,
     alt,
     loading,
+    debug: dDebug = false,
     imageRootProps = {},
     imageProps = {},
     ...props
@@ -26,6 +27,7 @@ export const Img = (pr) => {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
   const [size, setSize] = useState()
+  const [debug, setDebug] = useState()
 
 
   useLayoutEffect(() => {
@@ -104,7 +106,30 @@ export const Img = (pr) => {
     }
   }, [loaded])
 
+  useEffect(() => {
+    if (!dDebug) {
+      setDebug(undefined)
+      return
+    }
+    setDebug(1)
 
+    let timeout1
+    let timeout2
+    timeout1 = setTimeout(() => {
+      setDebug(2)
+      timeout2 = setTimeout(() => {
+        setDebug(3)
+      }, 5000)
+    }, 5000)
+    return () => {
+      clearInterval(timeout1)
+      clearInterval(timeout2)
+    }
+  }, [dDebug])
+
+
+  const src = (!dDebug || debug > 2) ? dSrc : undefined
+  const placeholderSrc = (!dDebug || debug > 1) ? dPlaceholderSrc : undefined
   const isLoaded = src && loaded && !error
   const width = vw ? `${vw}vw` : (size?.width || '100%')
   const height = vw ? `${((imageHeight * vw) / imageWidth)}vw` : (size?.height || 'auto')
@@ -211,7 +236,8 @@ export function getImageSize(ref, imageWidth, imageHeight) {
 
 
 Img.defaultProps = {
-  loading: 'lazy'
+  loading: 'lazy',
+  debug: false
 }
 
 Img.propTypes = {
@@ -221,6 +247,7 @@ Img.propTypes = {
   placeholderSrc: PropTypes.string,
   alt: PropTypes.string,
   loading: PropTypes.string,
+  debug: PropTypes.bool,
   imageRootProps: PropTypes.object,
   imageProps: PropTypes.object,
   skeleton: PropTypes.oneOfType([PropTypes.element, PropTypes.bool])

@@ -1,4 +1,9 @@
 
+.placeholder{
+  background-size: cover;
+  animation: bgTransform 0.2s normal ease-out;
+}
+
 .skeleton {
   position: absolute;
   top: 0;
@@ -22,6 +27,44 @@
     background-position: 320px;
   }
 }
+
+
+@keyframes bgTransform {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 10%;
+  }
+  20% {
+    opacity: 20%;
+  }
+  30% {
+    opacity: 30%;
+  }
+  40% {
+    opacity: 40%;
+  }
+  50% {
+    opacity: 50%;
+  }
+  60% {
+    opacity: 60%;
+  }
+  70% {
+    opacity: 70%;
+  }
+  80% {
+    opacity: 80%;
+  }
+  90% {
+    opacity: 90%;
+  }
+  100% {
+    opacity: cover;
+  }
+}
+
 
 
 .initWithOpacity {

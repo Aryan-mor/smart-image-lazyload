@@ -10,13 +10,13 @@ export const Img = (pr) => {
     imageWidth,
     imageHeight,
     borderRadius,
-    checkParent = false,
+    checkParent,
     src: dSrc,
-    minHeight: mH = 70,
+    minHeight: mH ,
     placeholderSrc: dPlaceholderSrc,
     alt,
     loading,
-    debug: dDebug = false,
+    debug: dDebug ,
     debugTimeout,
     imageRootProps = {},
     imageProps = {},
@@ -155,6 +155,7 @@ export const Img = (pr) => {
         <div className={styles.skeleton} />
       ))}
       <div
+        className={placeholderSrc?styles.placeholder:undefined}
         {...imageRootProps}
         style={{
           maxWidth: '100%',
@@ -239,7 +240,9 @@ export function getImageSize(ref, imageWidth, imageHeight) {
 Img.defaultProps = {
   loading: 'lazy',
   debug: false,
-  debugTimeout: 5000,
+  minHeight:70,
+  checkParent:false,
+  debugTimeout: 2000,
 }
 
 Img.propTypes = {

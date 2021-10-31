@@ -50,7 +50,8 @@ function MyImage({ width ,show}) {
         checkParent={true}
         imageWidth={1280}
         imageHeight={794}
-        src={show ? 'https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-has-ph.jpg':undefined}
+        debug={false}
+        src={'https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-has-ph.jpg'}
         placeholderSrc={'https://api.mehrtakhfif.com/media/boxes/2/2020-07-31/media/08-14-40-23-ph.jpg'}
         alt={'image'} />
     </div>

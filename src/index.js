@@ -17,6 +17,7 @@ export const Img = (pr) => {
     alt,
     loading,
     debug: dDebug = false,
+    debugTimeout,
     imageRootProps = {},
     imageProps = {},
     ...props
@@ -119,8 +120,8 @@ export const Img = (pr) => {
       setDebug(2)
       timeout2 = setTimeout(() => {
         setDebug(3)
-      }, 5000)
-    }, 5000)
+      }, debugTimeout)
+    }, debugTimeout)
     return () => {
       clearInterval(timeout1)
       clearInterval(timeout2)
@@ -237,7 +238,8 @@ export function getImageSize(ref, imageWidth, imageHeight) {
 
 Img.defaultProps = {
   loading: 'lazy',
-  debug: false
+  debug: false,
+  debugTimeout: 5000,
 }
 
 Img.propTypes = {
@@ -248,6 +250,7 @@ Img.propTypes = {
   alt: PropTypes.string,
   loading: PropTypes.string,
   debug: PropTypes.bool,
+  debugTimeout: PropTypes.number,
   imageRootProps: PropTypes.object,
   imageProps: PropTypes.object,
   skeleton: PropTypes.oneOfType([PropTypes.element, PropTypes.bool])
